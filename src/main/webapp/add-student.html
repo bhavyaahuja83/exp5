@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Student · Student Records</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.html"><span class="brand-mark">S</span> Student Records</a>
+        <nav aria-label="Main navigation">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="students">All students</a>
+            <a class="button button-small" href="add-student.html" aria-current="page">Add student</a>
+        </nav>
+    </header>
+    <main class="form-shell">
+        <a class="back-link" href="index.html">← Home</a>
+        <p class="eyebrow">NEW RECORD</p>
+        <h1>Add a student</h1>
+        <p class="form-intro">Enter the student's details below.</p>
+        <form class="student-form" action="students/add" method="post">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required>
+            <label for="course">Course</label>
+            <input id="course" name="course" type="text" required>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+            <div class="form-actions">
+                <button class="button" type="submit">Save student</button>
+                <a class="text-link" href="students">View all students</a>
+            </div>
+        </form>
+    </main>
+    <footer class="site-footer">Advanced Internet Programming · Student Records</footer>
+</body>
+</html>

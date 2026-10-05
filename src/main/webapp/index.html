@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Records</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.html"><span class="brand-mark">S</span> Student Records</a>
+        <nav aria-label="Main navigation">
+            <a class="nav-link active" href="index.html">Home</a>
+            <a class="nav-link" href="students">All students</a>
+            <a class="button button-small" href="add-student.html">Add student</a>
+        </nav>
+    </header>
+    <main class="home-shell">
+        <section class="welcome-band">
+            <p class="eyebrow">ACADEMIC RECORDS</p>
+            <h1>Student Management</h1>
+            <p class="welcome-copy">Maintain student names, courses, and contact details in one place.</p>
+        </section>
+        <section class="action-grid" aria-label="Student record actions">
+            <article class="action-panel">
+                <span class="panel-index">01 / CREATE</span>
+                <h2>Add a student</h2>
+                <p>Enter a student's details and save them to the records.</p>
+                <a class="button" href="add-student.html">Open entry form <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="action-panel action-panel-green">
+                <span class="panel-index">02 / MANAGE</span>
+                <h2>Browse records</h2>
+                <p>Review, edit, or remove an existing student record.</p>
+                <a class="button button-dark" href="students">View students <span aria-hidden="true">→</span></a>
+            </article>
+        </section>
+    </main>
+    <footer class="site-footer">Advanced Internet Programming · Student Records</footer>
+</body>
 </html>

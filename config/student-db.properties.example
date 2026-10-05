@@ -1,0 +1,6 @@
+# Copy this file to: %CATALINA_BASE%\conf\student-db.properties
+# Paste your real Supabase database password into the password property there.
+# Keep the real file outside the repository and do not commit it.
+url=jdbc:postgresql://db.nygekeajoxkpnjuzaiys.supabase.co:5432/postgres?sslmode=require
+user=postgres
+password=PASTE_YOUR_SUPABASE_DATABASE_PASSWORD_HERE
