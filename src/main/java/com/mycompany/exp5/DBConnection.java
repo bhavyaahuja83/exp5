@@ -11,30 +11,50 @@ import java.util.Properties;
 
 public final class DBConnection {
     private static final String CONFIG_FILE = "student-db.properties";
+    private static final String FALLBACK_URL = "jdbc:postgresql://db.nygekeajoxkpnjuzaiys.supabase.co:5432/postgres?sslmode=require";
+    private static final String FALLBACK_USER = "postgres";
+    private static final String FALLBACK_PASSWORD = "Bhavya@@1234";
 
     private DBConnection() {
     }
 
     public static Connection getConnection() throws SQLException {
+        String url = FALLBACK_URL;
+        String user = FALLBACK_USER;
+        String password = FALLBACK_PASSWORD;
+
         String catalinaBase = System.getProperty("catalina.base");
-        if (catalinaBase == null || catalinaBase.isBlank()) {
-            throw new SQLException("Tomcat's catalina.base system property is not set.");
+        if (catalinaBase != null && !catalinaBase.isBlank()) {
+            Path configPath = Path.of(catalinaBase, "conf", CONFIG_FILE);
+            if (Files.exists(configPath)) {
+                Properties settings = new Properties();
+                try (InputStream input = Files.newInputStream(configPath)) {
+                    settings.load(input);
+                } catch (IOException exception) {
+                    throw new SQLException("Cannot read database configuration at " + configPath, exception);
+                }
+
+                String configUrl = settings.getProperty("url");
+                String configUser = settings.getProperty("user");
+                String configPassword = settings.getProperty("password");
+                if (configUrl != null && !configUrl.isBlank()) {
+                    url = configUrl;
+                }
+                if (configUser != null && !configUser.isBlank()) {
+                    user = configUser;
+                }
+                if (configPassword != null && !configPassword.isBlank()) {
+                    password = configPassword;
+                }
+            }
         }
 
-        Path configPath = Path.of(catalinaBase, "conf", CONFIG_FILE);
-        Properties settings = new Properties();
-        try (InputStream input = Files.newInputStream(configPath)) {
-            settings.load(input);
-        } catch (IOException exception) {
-            throw new SQLException("Cannot read database configuration at " + configPath, exception);
+        if (!url.trim().startsWith("jdbc:postgresql://")) {
+            throw new SQLException("Use a JDBC URL beginning with jdbc:postgresql://");
         }
-
-        String url = settings.getProperty("url");
-        String user = settings.getProperty("user");
-        String password = settings.getProperty("password");
-        if (url == null || user == null || password == null
-                || url.isBlank() || user.isBlank()) {
-            throw new SQLException("Set url, user, and password in " + configPath);
+        if (password.contains("YOUR-PASSWORD")
+                || password.contains("PASTE_YOUR_SUPABASE_DATABASE_PASSWORD_HERE")) {
+            throw new SQLException("Replace the password placeholder in the database configuration.");
         }
 
         try {

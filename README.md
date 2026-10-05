@@ -6,8 +6,10 @@ A Maven WAR practical using Jakarta Servlets, JSP, JDBC, and PostgreSQL. It work
 
 1. Find Tomcat's `CATALINA_BASE` directory. This is the instance directory containing `conf`, `logs`, and `webapps`.
 2. Copy `config/student-db.properties.example` to `%CATALINA_BASE%\conf\student-db.properties` on Windows (or `$CATALINA_BASE/conf/student-db.properties` on Linux/macOS).
-3. In that copied file, replace the `password` placeholder with the Supabase database password. The URL already uses the supplied host, port `5432`, and database `postgres`, with SSL required. Keep the configuration file outside this repository and do not commit it.
-4. Restart Tomcat after creating or changing the file. The application reads it from Tomcat's `conf` directory using the `catalina.base` system property.
+3. In that copied file, replace the `password` placeholder with the Supabase database password. Keep the configuration file outside this repository and do not commit it.
+4. The direct Supabase database host may require IPv6. If your network cannot resolve or reach it, open the Supabase project's **Connect** panel, select **Session pooler**, and use its host, port, database, and user values in this file. For the `url` property use `jdbc:postgresql://<HOST>:<PORT>/<DATABASE>?sslmode=require`; use the pooler-provided user and your database password for the other properties.
+
+The application reloads this file whenever it opens a database connection, so editing it does not require rebuilding the WAR or restarting Tomcat.
 
 The URL is in PostgreSQL JDBC form:
 
